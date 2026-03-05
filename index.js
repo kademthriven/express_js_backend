@@ -2,23 +2,35 @@ const express = require('express');
 const app = express();
 let port = 4000;
 
+app.use((req, res, next) => {
+    console.log(`${req.method} request made to ${req.url}`);
+    next(); // Move to next middleware/route
+});
+
 app.use(express.json());
 
-app.get('/welcome/:username', (req, res) => {
+// GET /products
+app.get('/products', (req, res) => {
+    res.status(200).send("Here is the list of all products.");
+});
 
-    // Extract route parameter
-    const username = req.params.username;
+// POST /products
+app.post('/products', (req, res) => {
+    res.status(201).send("A new product has been added.");
+});
 
-    // Extract query parameter
-    const role = req.query.role;
+// GET /categories
+app.get('/categories', (req, res) => {
+    res.status(200).send("Here is the list of all categories.");
+});
 
-    // If role is not provided
-    if (!role) {
-        return res.send(`Welcome ${username}`);
-    }
+// POST /categories
+app.post('/categories', (req, res) => {
+    res.status(201).send("A new category has been created.");
+});
 
-    // Send personalized response
-    res.send(`Welcome ${username}, your role is ${role}`);
+app.use((req, res) => {
+    res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
 
 
