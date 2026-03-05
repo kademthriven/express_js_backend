@@ -2,17 +2,28 @@ const express = require('express');
 const app = express();
 let port = 3000;
 
-app.use((req, res, next) => {
-    req.user = "Guest";
-    next();
+app.use(express.json());
+
+/* ---------------- ROUTES ---------------- */
+
+// GET /orders
+app.get('/orders', (req, res) => {
+    res.send("Here is the list of all orders.");
 });
 
-app.get('/', (req, res) => {
-    res.send("Server is running 🚀");
+// POST /orders
+app.post('/orders', (req, res) => {
+    res.send("A new order has been created.");
 });
 
-app.get('/welcome', (req, res) => {
-    res.send(`<h1>Welcome, ${req.user}!</h1>`);
+// GET /users
+app.get('/users', (req, res) => {
+    res.send("Here is the list of all users.");
+});
+
+// POST /users
+app.post('/users', (req, res) => {
+    res.send("A new user has been added.");
 });
 
 app.listen(port, () => {
