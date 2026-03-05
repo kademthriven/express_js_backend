@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 let port = 4000;
-
-const productsRouter = require('./routes/products');
-const categoriesRouter = require('./routes/categories');
+app.use(express.json());
 
 
-app.use('/products', productsRouter);
-app.use('/categories', categoriesRouter);
+const bookRouter = require('./routes/book');
+
+
+app.use('/books', bookRouter);
 
 
 app.listen(port, () => {
